@@ -2,11 +2,11 @@ services:
   - type: web
     name: calm-corners-app
     env: node
-    buildCommand: npm install && npm run build  # Changed from npm ci
+    buildCommand: npm ci && npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: SESSION_SECRET
-        value: your_pre_generated_secret_here  # Replace with actual secret
+        generateValue: true
     healthCheckPath: /api/study-spaces
